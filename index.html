@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>D-Day</title>
+    <script>
+  
+    const dateFormMaker = function() {
+        const inputYear = document.querySelector('#target-year-input').value;
+        const inputMonth = document.querySelector('#target-month-input').value;
+        const inputDate = document.querySelector("#target-date-input").value;
+        
+        //const dateFormat = inputYear + '-' + inputMonth+ '-' + inputDate; //dateFormat 지역변수,문자열 변환
+        const dateFormat = `${inputYear}-${inputMonth}-${inputDate}` //템플릿 리터럴
+        // console.log(inputYear, inputMonth, inputDate);
+       return dateFormat;
+    };
+
+
+    const counterMaker =function(){
+        const targetDateInput = dateFormMaker();
+        const nowDate = new Date();
+        const targetDate = new Date(targetDateInput).setHours(0,0,0,0); // 타겟하는 날짜의 시간데이터를 받아올 수 있다. 표준시간 +9
+        const remaining = (targetDate - nowDate)/1000;
+        //console.log(targetDate - nowDate); 목표일까지 남은 초 (ms)(천단위까지 표시됌)
+       // console.log(remaining); 목표일 까지 남은 초(s) 1시간-> 60분->3600초 (초->/3600 -> 시/24 ->남은 '일수' 알게됌)
+        const remainingDate = Math.floor((remaining/3600)/24);
+        const remainingHours = Math.floor(remaining/3600)%24; //D-Day 카운터에서 남은 시간을 알기 위해, 시간단위로 바꾼 후 내림하고, 24로 나눈 나머지를 가지고 온다.
+        const remainingMin = Math.floor(remaining/60)%60;//D-Day 카운터에서 남은 분을 알기 위해, 분으로 나눈 단위에서 내림한 후 %60(분을 나눈 나머지)를 가지고 온다.
+        const reaminingSec = Math.floor(remaining)%60; //D-Day 카운터에서 남은 초를 알기 위해, 원래 초 단위에서,
+        console.log(remainingDate, remainingHours, remainingMin, reaminingSec);
+    };
+
+    </script>
+
+
+
+</head>
+<body>
+    <input id="target-year-input" class="target-input" />
+    <input id="target-month-input" class="target-input"/>
+    <input id="target-date-input" class="target-input"/>
+    <button onclick="counterMaker()">버튼</button>
+</body>
+</html>
